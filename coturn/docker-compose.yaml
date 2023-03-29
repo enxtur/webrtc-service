@@ -1,0 +1,11 @@
+version: "3"
+services:
+  coturn:
+    image: coturn/coturn
+    container_name: coturn
+    restart: always
+    ports:
+      - "3478:3478"
+      - "3478:3478/udp"
+      - "5349:5349"
+      - "5349:5349/udp"
