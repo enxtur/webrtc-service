@@ -2,6 +2,7 @@ import http from "http";
 // import * as websocket from "./websocket";
 import express from "express";
 import { ExpressPeerServer } from "peer";
+import { WebSocketServer } from "ws";
 
 (async function() {
   const app = express();
@@ -13,6 +14,9 @@ import { ExpressPeerServer } from "peer";
     // generateClientId: function () {
     //   return "12345";
     // }
+    createWebSocketServer(options) {
+      return new WebSocketServer(options);
+    },
   });
   peerServer.on("connection", (client) => {
     const clientId = client.getId();
@@ -23,6 +27,9 @@ import { ExpressPeerServer } from "peer";
       socket?.close();
     }
   });
+  peerServer.on("message", (client, message) => {
+    console.log(message);
+  })
   app.use(peerServer);
   app.use("/", express.static(__dirname + "/../../xs-webrtc-client/build"));
   server.listen(3000, () => {
