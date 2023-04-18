@@ -10,7 +10,7 @@ import { WebSocketServer } from "ws";
   // websocket.use(server);
   const peerServer = ExpressPeerServer(server, {
     
-    path: "/myapp",
+    path: "/webrtc",
     // generateClientId: function () {
     //   return "12345";
     // }
@@ -32,6 +32,7 @@ import { WebSocketServer } from "ws";
   })
   app.use(peerServer);
   app.use("/", express.static(__dirname + "/../../xs-webrtc-client/build"));
+  app.use("/server", express.static(__dirname + "/../../xs-webrtc-client/build"));
   server.listen(3000, () => {
     console.log("listening on *:3000");
   });
